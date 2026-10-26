@@ -10,7 +10,21 @@
   .chk.on { background: #0e7c66; color: #fff; }
   input, textarea { display: block; width: 100%; padding: 8px; font: inherit; border: 1px solid #767676; }
   .hibas { border: 2px solid #e74c3c; }
-  .btn { display: inline-block; margin-top: 12px; background: #0e7c66; color: #fff; padding: 10px 16px; cursor: pointer; }
+  .btn { 
+    display: inline-block; 
+    margin-top: 12px; 
+    background: #0e7c66; 
+    color: #fff; 
+    padding: 10px 16px; 
+    cursor: pointer; 
+    border: none; 
+    font: inherit; 
+    border-radius: 4px; 
+  }
+  .btn:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+  }
   #ok { color: #2ecc71; font-weight: bold; }
   .sr-only {
     position: absolute;
@@ -60,7 +74,7 @@
 <input id="eros" type="number" min="0" max="10">
 <h2><label for="megj">Megjegyzés</label></h2>
 <textarea id="megj"></textarea>
-<div class="btn" id="ment">Mentés</div>
+<button type="button" class="btn" id="ment">Mentés</button>
 <p id="ok"></p>
 <script>
   document.getElementById('ment').addEventListener('click', function () {
