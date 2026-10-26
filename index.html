@@ -71,7 +71,8 @@
   </label>
 </fieldset>
 <h2><label for="eros">Erősség (0–10)</label></h2>
-<input id="eros" type="number" min="0" max="10">
+<input id="eros" type="number" min="0" max="10" aria-describedby="eros-hiba">
+<p id="eros-hiba" class="error-msg" role="alert" style="color: #c0392b; font-weight: bold; margin: 4px 0 0 0; display: none;"></p>
 <h2><label for="megj">Megjegyzés</label></h2>
 <textarea id="megj"></textarea>
 <button type="button" class="btn" id="ment">Mentés</button>
@@ -79,9 +80,23 @@
 <script>
   document.getElementById('ment').addEventListener('click', function () {
     var eros = document.getElementById('eros');
+    var erosHiba = document.getElementById('eros-hiba');
     var v = Number(eros.value);
+    
     document.getElementById('ok').textContent = '';
-    if (eros.value === '' || v < 0 || v > 10) { eros.classList.add('hibas'); return; }
+    erosHiba.textContent = '';
+    erosHiba.style.display = 'none';
+    eros.removeAttribute('aria-invalid');
+
+    if (eros.value === '' || isNaN(v) || v < 0 || v > 10) {
+      eros.classList.add('hibas');
+      eros.setAttribute('aria-invalid', 'true');
+      erosHiba.textContent = 'Kérjük, adjon meg egy 0 és 10 közötti számot!';
+      erosHiba.style.display = 'block';
+      eros.focus();
+      return;
+    }
+    
     eros.classList.remove('hibas');
     document.getElementById('ok').textContent = 'Mentve!';
   });
