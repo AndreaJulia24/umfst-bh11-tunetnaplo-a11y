@@ -12,16 +12,50 @@
   .hibas { border: 2px solid #e74c3c; }
   .btn { display: inline-block; margin-top: 12px; background: #0e7c66; color: #fff; padding: 10px 16px; cursor: pointer; }
   #ok { color: #2ecc71; font-weight: bold; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .chk-label { display: inline-block; cursor: pointer; }
+
+  input[type="checkbox"]:checked + .chk {
+    background: #0e7c66;
+    color: #fff;
+  }
+  input[type="checkbox"]:focus-visible + .chk {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+  }
 </style>
 </head>
 <body>
 <h1>Napi tünetnapló</h1>
 <h3>Tünetek</h3>
-<div id="tunetek">
-  <div class="chk" data-v="fejfajas">Fejfájás</div>
-  <div class="chk" data-v="hanyinger">Hányinger</div>
-  <div class="chk" data-v="szedules">Szédülés</div>
-</div>
+<fieldset id="tunetek" style="border: none; padding: 0; margin: 0;">
+  <legend class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Válaszd ki a tüneteket</legend>
+  
+  <label class="chk-label">
+    <input type="checkbox" name="tunet" value="fejfajas" class="sr-only">
+    <span class="chk">Fejfájás</span>
+  </label>
+
+  <label class="chk-label">
+    <input type="checkbox" name="tunet" value="hanyinger" class="sr-only">
+    <span class="chk">Hányinger</span>
+  </label>
+
+  <label class="chk-label">
+    <input type="checkbox" name="tunet" value="szedules" class="sr-only">
+    <span class="chk">Szédülés</span>
+  </label>
+</fieldset>
 <h3>Erősség (0–10)</h3>
 <input id="eros" type="number" min="0" max="10" tabindex="2">
 <h3>Megjegyzés</h3>
@@ -29,9 +63,6 @@
 <div class="btn" id="ment">Mentés</div>
 <p id="ok"></p>
 <script>
-  document.querySelectorAll('.chk').forEach(function (c) {
-    c.addEventListener('click', function () { c.classList.toggle('on'); });
-  });
   document.getElementById('ment').addEventListener('click', function () {
     var eros = document.getElementById('eros');
     var v = Number(eros.value);
